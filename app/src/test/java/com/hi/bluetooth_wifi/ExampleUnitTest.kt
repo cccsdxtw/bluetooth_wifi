@@ -1,4 +1,4 @@
-package com.hi.BluetoothAndWifi
+package com.hi.bluetooth_wifi
 
 import org.junit.Test
 

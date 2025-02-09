@@ -1,4 +1,4 @@
-package com.hi.BluetoothAndWifi.theme
+package com.hi.bluetooth_wifi.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

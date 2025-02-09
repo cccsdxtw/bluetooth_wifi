@@ -1,4 +1,4 @@
-package com.hi.BluetoothAndWifi.theme
+package com.hi.bluetooth_wifi.theme
 
 import androidx.compose.ui.graphics.Color
 

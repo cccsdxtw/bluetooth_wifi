@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "InterviewStock"
+rootProject.name = "bluetooth_wifi"
 include(":app")
  

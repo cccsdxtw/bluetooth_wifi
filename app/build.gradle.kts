@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.hi.interviewstock"
+    namespace = "com.hi.bluetooth_wifi"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.hi.interviewstock"
+        applicationId = "com.hi.bluetooth_wifi"
         minSdk = 30
         targetSdk = 35
         versionCode = 1
@@ -49,6 +49,7 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2023.10.00"))
     implementation("androidx.compose.ui:ui:1.5.0")
     implementation("androidx.compose.material3:material3:1.1.0")
+    implementation(libs.androidx.navigation.compose)
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.espresso:espresso-core:3.5.1")
