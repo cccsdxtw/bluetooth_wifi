@@ -1,6 +1,5 @@
 package com.hi.bluetooth_wifi.ui.main
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +26,7 @@ fun MainPage(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = { Toast.makeText(context, "WiFi那頁", Toast.LENGTH_SHORT).show()
+        Button(onClick = {navController.navigate("wifi")
         }) {
             Text("WiFi頁")
         }
