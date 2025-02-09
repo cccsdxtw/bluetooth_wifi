@@ -28,7 +28,6 @@ fun MainPage(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(onClick = { Toast.makeText(context, "WiFi那頁", Toast.LENGTH_SHORT).show()
-            Log.e("o","ooooooooooo")
         }) {
             Text("WiFi頁")
         }
