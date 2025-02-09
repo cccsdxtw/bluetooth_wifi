@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.hi.bluetooth_wifi.ui.bluetooth.BluetoothPage
 import com.hi.bluetooth_wifi.ui.main.MainPage
 import com.hi.bluetooth_wifi.ui.wifi.WifiPage
 
@@ -18,6 +19,8 @@ fun MainApp() {
     NavHost(navController = navController, startDestination = "main") {
         composable("main") { MainPage(navController) }
         composable("wifi") { WifiPage() }
+        composable("bluetooth") { BluetoothPage() }
+
     }
 }
 

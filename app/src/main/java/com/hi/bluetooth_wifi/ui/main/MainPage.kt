@@ -31,7 +31,8 @@ fun MainPage(navController: NavController) {
             Text("WiFi頁")
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = {Toast.makeText(context, "藍牙那頁", Toast.LENGTH_SHORT).show() }) {
+        Button(onClick = {navController.navigate("bluetooth")
+        }) {
             Text("藍牙頁")
         }
     }
