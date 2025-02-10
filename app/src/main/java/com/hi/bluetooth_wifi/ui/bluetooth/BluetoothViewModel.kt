@@ -12,8 +12,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class BluetoothViewModel : ViewModel() {
-    private val _bluetoothList = MutableStateFlow<List<String>>(emptyList())
+    val _bluetoothList = MutableStateFlow<List<String>>(emptyList())
     val bluetoothList: StateFlow<List<String>> = _bluetoothList
+
+    private val _isScanning = MutableStateFlow(false) // 新增 isScanning 狀態
+    val isScanning: StateFlow<Boolean> = _isScanning
 
     private val adapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
 
@@ -21,15 +24,18 @@ class BluetoothViewModel : ViewModel() {
     fun startBluetoothScan(context: Context) {
         if (adapter == null) {
             _bluetoothList.value = listOf("設備不支援藍牙")
+            _isScanning.value = false
             return
         }
 
         if (!adapter.isEnabled) {
             _bluetoothList.value = listOf("藍牙未啟用")
+            _isScanning.value = false
             return
         }
 
         _bluetoothList.value = emptyList() // 清空設備列表
+        _isScanning.value = true // 開始掃描時設為 true
 
         if (adapter.isDiscovering) {
             adapter.cancelDiscovery()
@@ -47,11 +53,20 @@ class BluetoothViewModel : ViewModel() {
                     val deviceAddress = device?.address
 
                     _bluetoothList.value = _bluetoothList.value + "$deviceName ($deviceAddress)"
+                } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED == action) {
+                    _isScanning.value = false // 掃描結束時設為 false
                 }
             }
         }
 
-        val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
+        val filter = IntentFilter().apply {
+            addAction(BluetoothDevice.ACTION_FOUND)
+            addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)
+        }
         context.registerReceiver(receiver, filter)
+    }
+
+    fun clearBluetoothList() {
+        _bluetoothList.value = emptyList() // 清空藍牙設備列表
     }
 }
