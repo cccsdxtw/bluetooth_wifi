@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
@@ -20,15 +21,27 @@ import androidx.navigation.NavController
 fun MainPage(navController: NavController) {
     val context = LocalContext.current
 
-    // 權限請求啟動器
-    val permissionLauncher = rememberLauncherForActivityResult(
+    // WiFi 權限請求啟動器
+    val wifiPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         val allGranted = permissions.values.all { it }
         if (allGranted) {
             navController.navigate("wifi")
         } else {
-            Toast.makeText(context, "請授權以使用此功能", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "請授權WiFi功能", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // 藍牙權限請求啟動器
+    val bluetoothPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val allGranted = permissions.values.all { it }
+        if (allGranted) {
+            navController.navigate("bluetooth")
+        } else {
+            Toast.makeText(context, "請授權藍牙功能", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -40,7 +53,7 @@ fun MainPage(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(onClick = {
-            // 檢查權限是否已授予
+            // 檢查WiFi相關的權限
             val fineLocationGranted = ContextCompat.checkSelfPermission(
                 context, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
@@ -49,9 +62,9 @@ fun MainPage(navController: NavController) {
             ) == PackageManager.PERMISSION_GRANTED
 
             if (fineLocationGranted && coarseLocationGranted) {
-                navController.navigate("wifi") // 已授權，直接導航
+                navController.navigate("wifi")
             } else {
-                permissionLauncher.launch(
+                wifiPermissionLauncher.launch(
                     arrayOf(
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION
@@ -70,11 +83,11 @@ fun MainPage(navController: NavController) {
             if (bluetoothPermissionGranted) {
                 navController.navigate("bluetooth")
             } else {
-                permissionLauncher.launch(
+                bluetoothPermissionLauncher.launch(
                     arrayOf(
                         Manifest.permission.BLUETOOTH,
                         Manifest.permission.BLUETOOTH_ADMIN,
-                        Manifest.permission.BLUETOOTH_SCAN // 新增這個權限
+                        Manifest.permission.BLUETOOTH_SCAN
                     )
                 )
             }
@@ -83,4 +96,10 @@ fun MainPage(navController: NavController) {
         }
 
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainPagePreview() {
+    MainPage(navController = NavController(LocalContext.current))
 }
