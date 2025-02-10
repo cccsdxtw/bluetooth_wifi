@@ -23,14 +23,12 @@ import java.util.Locale
 
 @Composable
 fun BluetoothPage(viewModel: BluetoothViewModel = viewModel()) {
-    // 初始化更新時間狀態
-    var currentTime by remember { mutableStateOf(com.hi.bluetooth_wifi.ui.wifi.getCurrentTime()) }
 
     // 每 10 秒更新時間
     LaunchedEffect(Unit) {
         while (true) {
             delay(10000)
-            currentTime = getCurrentTime()
+
         }
     }
 
@@ -39,7 +37,6 @@ fun BluetoothPage(viewModel: BluetoothViewModel = viewModel()) {
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         // 顯示更新時間
-        BasicText(text = "更新時間：$currentTime", modifier = Modifier.padding(bottom = 16.dp))
         LazyColumn {
             items(bluetoothList) { device ->
                 BasicText(text = device)
