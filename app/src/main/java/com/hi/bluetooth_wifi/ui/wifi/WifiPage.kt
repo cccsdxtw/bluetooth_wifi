@@ -75,7 +75,7 @@ fun WifiPage(wifiViewModel: WifiViewModel? = null, navController: NavController)
              }) {
             Text("重新掃描")
         }
-
+        Spacer(modifier = Modifier.height(16.dp))
         // 返回按鈕
         Button(onClick = {
             navController.popBackStack()
