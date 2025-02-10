@@ -22,7 +22,7 @@ fun MainApp() {
         composable("main") { MainPage(navController) }
         composable("wifi") {  val wifiViewModel: WifiViewModel = viewModel()
             WifiPage(wifiViewModel = wifiViewModel,navController = navController)  }
-        composable("bluetooth") { BluetoothPage() }
+        composable("bluetooth") { BluetoothPage(navController = navController) }
 
     }
 }
