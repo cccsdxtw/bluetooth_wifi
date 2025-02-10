@@ -62,8 +62,25 @@ fun MainPage(navController: NavController) {
             Text("WiFi頁")
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { navController.navigate("bluetooth") }) {
+        Button(onClick = {
+            val bluetoothPermissionGranted = ContextCompat.checkSelfPermission(
+                context, Manifest.permission.BLUETOOTH_SCAN
+            ) == PackageManager.PERMISSION_GRANTED
+
+            if (bluetoothPermissionGranted) {
+                navController.navigate("bluetooth")
+            } else {
+                permissionLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.BLUETOOTH,
+                        Manifest.permission.BLUETOOTH_ADMIN,
+                        Manifest.permission.BLUETOOTH_SCAN // 新增這個權限
+                    )
+                )
+            }
+        }) {
             Text("藍牙頁")
         }
+
     }
 }

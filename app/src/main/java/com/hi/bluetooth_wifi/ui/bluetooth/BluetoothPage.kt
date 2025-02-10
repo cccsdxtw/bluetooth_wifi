@@ -5,47 +5,34 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.BasicText
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
-fun BluetoothPage(viewModel: BluetoothViewModel = viewModel()) {
-
-    // 每 10 秒更新時間
-    LaunchedEffect(Unit) {
-        while (true) {
-            delay(10000)
-
-        }
-    }
-
-    // 觀察 ViewModel 中的藍牙設備列表
+fun BluetoothPage(viewModel: BluetoothViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+    val context = LocalContext.current
     val bluetoothList by viewModel.bluetoothList.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.startBluetoothScan(context)
+    }
+
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        // 顯示更新時間
+        Button(onClick = { viewModel.startBluetoothScan(context) }) {
+            Text("開始掃描藍牙設備")
+        }
+
         LazyColumn {
             items(bluetoothList) { device ->
-                BasicText(text = device)
+                Text( text = device )
             }
         }
     }
-}
-
-fun getCurrentTime(): String {
-    val currentTime = System.currentTimeMillis()
-    return SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date(currentTime))
 }
