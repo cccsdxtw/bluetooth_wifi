@@ -64,7 +64,10 @@ fun WifiPage(wifiViewModel: WifiViewModel? = null, navController: NavController)
         }
 
         // 重新掃描按鈕
-        Button(onClick = { wifiViewModel?.fetchWifiList() }) {
+        Button(onClick = {
+            wifiViewModel?.clearWifiList() // 清空列表
+            wifiViewModel?.fetchWifiList() // 重新掃描
+             }) {
             Text("重新掃描")
         }
 

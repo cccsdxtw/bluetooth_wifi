@@ -77,6 +77,9 @@ open class WifiViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
     }
+    fun clearWifiList() {
+        _wifiList.value = emptyList() // 清空 Wi-Fi 列表
+    }
 
     // 手動刷新
     fun refreshWifiList() {
