@@ -1,6 +1,7 @@
 package com.hi.bluetooth_wifi.ui.wifi
 
 import android.app.Application
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
@@ -17,6 +18,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.compose.rememberNavController
+import com.hi.bluetooth_wifi.theme.BackgroundDark
+import com.hi.bluetooth_wifi.theme.BackgroundLight
+import com.hi.bluetooth_wifi.theme.TestDark
+import com.hi.bluetooth_wifi.theme.TestLight
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
